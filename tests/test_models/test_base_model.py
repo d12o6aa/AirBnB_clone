@@ -148,6 +148,7 @@ class TestConstructorMethod(unittest.TestCase):
         self.assertTrue(self.testObjdate.updated_at.__class__ == datetime)
 
 # To be continued
+# Don't forget to check pycodestyle of the test files (Including that)
 
 class TestStrMagicMethod(unittest.TestCase):
     ...
