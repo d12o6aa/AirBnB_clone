@@ -15,10 +15,21 @@ class BaseModel:
     created_at = datetime.now()
     updated_at = datetime.now()
 
-    def __init__(self):
-        self.id = BaseModel.id
-        self.created_at = BaseModel.created_at
-        self.updated_at = BaseModel.updated_at
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            for key in kwargs.keys():
+                if key is '__class__':
+                    continue
+                if key is 'created_at' or key is 'updated_at':
+                    formatOfdate = '%Y-%m-%dT%H:%M:%S.%f'
+                    dateetime = datetime.strptime(kwargs[key], formatOfdate)
+                    setattr(self, key, dateetime)
+                    continue
+                setattr(self, key, kwargs[key])
+        else:
+            self.id = BaseModel.id
+            self.created_at = BaseModel.created_at
+            self.updated_at = BaseModel.updated_at
 
     def __str__(self):
         """
