@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Models
+Models (classes) of the project
 """
 
 from uuid import uuid4
