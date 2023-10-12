@@ -5,7 +5,6 @@ Testing the base model by unittest
 
 import unittest
 from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
 import pycodestyle
 from datetime import datetime
 from io import StringIO
