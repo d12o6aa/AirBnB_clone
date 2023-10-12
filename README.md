@@ -33,15 +33,15 @@
 
 ## Description of the command intrepreter
 * How to start it
-    1- Clone the repo
-    2- Write command:
+    * Clone the repo
+    * Write command:
         python3 console.py
 * How to use it
-3- Start by writing the commands that are the methods in console.py that are (do_*())
+    * Start by writing the commands that are the methods in console.py that are (do_*())
 
 * Examples
-    command: create
-    creates new object
+    * command: create
+    * creates new object
 
 
 ## Tasks
