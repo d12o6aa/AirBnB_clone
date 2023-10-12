@@ -294,19 +294,22 @@ class TestToDictMethod(unittest.TestCase):
         expected['id'] = self.testObject2.id
         self.assertEqual(expected, ourDict)
 
-    def test_for_added_attrs_contained(self):
+    def test_with_added_attrs(self):
         """
-        test with kwarg
+        Test with added attributes
         """
-        self.testObject1 = BaseModel(mode='e')
-        ourDict = self.testObject1.to_dict()
+        self.testObjdate.name = "a"
+        self.testObjdate.mode = "w"
+        ourDict = self.testObjdate.to_dict()
         expected = dict()
-        expected['__class__'] = type(self.testObject1).__name__
-        expected['created_at'] = self.testObject1.created_at.isoformat()
-        expected['updated_at'] = self.testObject1.updated_at.isoformat()
-        expected['id'] = self.testObject2.id
-        expected['mode'] = self.testObject1.mode
+        expected['__class__'] = type(self.testObjdate).__name__
+        expected['created_at'] = self.testObjdate.created_at.isoformat()
+        expected['updated_at'] = self.testObjdate.updated_at.isoformat()
+        expected['id'] = self.testObjdate.id
+        expected['name'] = self.testObjdate.name
+        expected['mode'] = self.testObjdate.mode
         self.assertEqual(expected, ourDict)
+
 
 if __name__ == '__main__':
     unittest.main()
