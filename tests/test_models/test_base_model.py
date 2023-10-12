@@ -276,6 +276,12 @@ class TestToDictMethod(unittest.TestCase):
         """
         self.assertIsInstance(self.testObject1.to_dict(), dict)
 
+    def test_for_correct_keys(self):
+        self.assertIn("id", self.testObject1.to_dict())
+        self.assertIn("created_at", self.testObject1.to_dict())
+        self.assertIn("updated_at", self.testObject1.to_dict())
+        self.assertIn("__class__", self.testObject1.to_dict())
+
     def test_content_returned(self):
         """
         Testing the content of the returned dict
@@ -288,6 +294,19 @@ class TestToDictMethod(unittest.TestCase):
         expected['id'] = self.testObject2.id
         self.assertEqual(expected, ourDict)
 
+    def test_for_added_attrs_contained(self):
+        """
+        test with kwarg
+        """
+        self.testObject1 = BaseModel(mode='e')
+        ourDict = self.testObject1.to_dict()
+        expected = dict()
+        expected['__class__'] = type(self.testObject1).__name__
+        expected['created_at'] = self.testObject1.created_at.isoformat()
+        expected['updated_at'] = self.testObject1.updated_at.isoformat()
+        expected['id'] = self.testObject2.id
+        expected['mode'] = self.testObject1.mode
+        self.assertEqual(expected, ourDict)
 
 if __name__ == '__main__':
     unittest.main()
