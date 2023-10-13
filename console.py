@@ -47,6 +47,7 @@ class HBNBCommand(cmd.Cmd):
          Creates a new instance of BaseModel
         """
         command = self.parseline(line)[0]
+
         if command is None:
             print("** class name missing **")
         elif command not in self.classes:
@@ -55,6 +56,28 @@ class HBNBCommand(cmd.Cmd):
             new_obj = eval(command)
             new_obj.save()
             print(new_obj.id)
+
+    def do_show(self, line):
+        """
+        Prints the string representation of
+        an instance based on the class name and id
+        """
+        command = self.parseline(line)[0]
+        arg = self.parseline(line)[1]
+
+        if command is None:
+            print("** class name missing **")
+        elif command not in self.classes:
+            print("** class doesn't exist **")
+        elif arg == '':
+            print("** instance id missing **")
+        else:
+            data = models.storage.all().get(command + '.' + arg)
+            if data is None:
+                print("** no instance found **")
+            else:
+                print(data)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
