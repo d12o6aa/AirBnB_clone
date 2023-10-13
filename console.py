@@ -112,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
         if command is None:
             print([str(objs[obj]) for obj in objs])
         elif command not in self.classes:
-            keys = objs.keys()
+            key = objs.keys()
             print([str(objs[key]) for key in keys if key.startswith(command)])
         else:
             print("** class doesn't exist **")
