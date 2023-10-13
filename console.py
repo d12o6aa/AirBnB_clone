@@ -7,6 +7,14 @@ import sys
 from datetime import datetime
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
+# from models.state import State
+# from models.city import City
+# from models.amenity import Amenity
+# from models.place import Place
+# from models.review import Review
+import re
+import shlex
 
 
 class HBNBCommand(cmd.Cmd):
@@ -47,9 +55,8 @@ class HBNBCommand(cmd.Cmd):
         elif command not in self.classes:
             print("** class doesn't exist **")
         else:
-            new_obj = eval(command)
-            new_obj.save()
-            print(new_obj.id)
+            print(eval(command).id)
+            storage.save()
 
     def do_show(self, line):
         """
@@ -109,6 +116,50 @@ class HBNBCommand(cmd.Cmd):
             print([str(objs[key]) for key in keys if key.startswith(command)])
         else:
             print("** class doesn't exist **")
+
+    def do_update(self, line):
+        """
+        Updates an instance based on the class
+        name and id by adding or updating attribute
+        """
+        args = shlex.split(line)
+        args_size = len(args)
+        if args_size == 0:
+            print('** class name missing **')
+        elif args[0] not in self.classes:
+            print("** class doesn't exist **")
+        elif args_size == 1:
+            print('** instance id missing **')
+        else:
+            key = args[0] + '.' + args[1]
+            inst_data = storage.all().get(key)
+            if inst_data is None:
+                print('** no instance found **')
+            elif args_size == 2:
+                print('** attribute name missing **')
+            elif args_size == 3:
+                print('** value missing **')
+            else:
+                args[3] = self.analyze_parameter_value(args[3])
+                setattr(inst_data, args[2], args[3])
+                setattr(inst_data, 'updated_at', datetime.now())
+                storage.save()
+
+    def analyze_parameter_value(self, value):
+        """Checks a parameter value for an update
+        Analyze if a parameter is a string that needs
+        convert to a float number or an integer number.
+
+        Args:
+            value: The value to analyze
+
+        """
+        if value.isdigit():
+            return int(value)
+        elif value.replace('.', '', 1).isdigit():
+            return float(value)
+
+        return value
 
 if __name__ == '__main__':
     shell = HBNBCommand()
