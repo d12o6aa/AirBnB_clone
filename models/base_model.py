@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 """
-Models
+Models (classes) of the project
 """
 
 from uuid import uuid4
 from datetime import datetime
+import models
 
 
 class BaseModel:
@@ -16,11 +17,14 @@ class BaseModel:
     updated_at = datetime.now()
 
     def __init__(self, *args, **kwargs):
+        """
+        init method for baseModel instances
+        """
         if kwargs:
             for key in kwargs.keys():
-                if key is '__class__':
+                if key == '__class__':
                     continue
-                if key is 'created_at' or key is 'updated_at':
+                if key == 'created_at' or key == 'updated_at':
                     formatOfdate = '%Y-%m-%dT%H:%M:%S.%f'
                     dateetime = datetime.strptime(kwargs[key], formatOfdate)
                     setattr(self, key, dateetime)
@@ -30,6 +34,7 @@ class BaseModel:
             self.id = BaseModel.id
             self.created_at = BaseModel.created_at
             self.updated_at = BaseModel.updated_at
+            models.storage.new(self)
 
     def __str__(self):
         """
@@ -45,6 +50,7 @@ class BaseModel:
         :return: None
         """
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """
