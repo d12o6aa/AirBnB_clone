@@ -163,7 +163,7 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     shell = HBNBCommand()
-    
+ 
     if not sys.stdin.isatty():
         for line in sys.stdin:
             shell.onecmd(line.strip())
