@@ -97,6 +97,11 @@ class TestInitialization(unittest.TestCase):
         self.assertEqual(type(FileStorage._FileStorage__file_path), str)
         self.assertEqual(type(FileStorage._FileStorage__objects), dict)
 
+    def test_storage_initializes(self):
+        """
+        storage
+        """
+        self.assertEqual(type(models.storage), FileStorage)
 
 class TestMethods(unittest.TestCase):
     """
