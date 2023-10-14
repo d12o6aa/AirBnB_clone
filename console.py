@@ -8,11 +8,11 @@ from datetime import datetime
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
-# from models.state import State
-# from models.city import City
-# from models.amenity import Amenity
-# from models.place import Place
-# from models.review import Review
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 import re
 import shlex
 
@@ -112,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
         if command is None:
             print([str(objs[obj]) for obj in objs])
         elif command not in self.classes:
-            key = objs.keys()
+            keys = objs.keys()
             print([str(objs[key]) for key in keys if key.startswith(command)])
         else:
             print("** class doesn't exist **")
