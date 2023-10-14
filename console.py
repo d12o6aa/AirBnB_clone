@@ -108,10 +108,9 @@ class HBNBCommand(cmd.Cmd):
         """
         command = self.parseline(line)[0]
         objs = storage.all()
-
         if command is None:
             print([str(objs[obj]) for obj in objs])
-        elif command not in self.classes:
+        elif command in self.classes:
             keys = objs.keys()
             print([str(objs[key]) for key in keys if key.startswith(command)])
         else:
