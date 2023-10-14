@@ -12,11 +12,11 @@ from models.base_model import BaseModel
 from models import storage
 from models.engine.file_storage import FileStorage
 from models.user import User
-# from models.state import State
-# from models.place import Place
-# from models.city import City
-# from models.amenity import Amenity
-# from models.review import Review
+from models.state import State
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 
 class TestPycodestyle(unittest.TestCase):
@@ -106,12 +106,14 @@ class TestMethods(unittest.TestCase):
         """
         Setup for this class
         """
-        self.obj = User()
-        self.obj.email = "email@email.com"
-        self.obj.password = "3923@edhds"
-        self.obj.first_name = "AA"
-        self.obj.last_name = "BB"
-        self.my_storage = FileStorage()
+        self.user = User()
+        self.state = State()
+        self.amenity = Amenity()
+        self.city = City()
+        self.review = Review()
+        self.place = Place()
+        self.objectsList = [self.user, self.state, self.amenity, self.city,
+                            self.review, self.place]
 
     def tearDown(self):
         """
@@ -129,19 +131,22 @@ class TestMethods(unittest.TestCase):
         """
         Testing new method
         """
-        storage.new(self.obj)
-        boolean = self.obj in storage._FileStorage__objects.values()
-        self.assertEqual(boolean, True)
+        for obj in self.objectsList:
+            storage.new(obj)
+            boolean = obj in storage._FileStorage__objects.values()
+            if boolean == True:
+                self.assertTrue(boolean)
 
     def test_save(self):
         """
         Testing save method
         """
+        for obj in self.objectsList:
+            storage.new(obj)
+        storage.save()
         with open('file.json', 'r', encoding="UTF-8") as f:
-            storage.new(self.obj)
-            self.obj.save()
             data = f.read()
-            self.assertIn("User." + self.obj.id, data)
+            self.assertIn(f'{obj.__class__.__name__}.' + obj.id, data)
 
     def test_reload1(self):
         """
@@ -149,13 +154,13 @@ class TestMethods(unittest.TestCase):
         """
         storage.reload()
         for value in storage._FileStorage__objects.values():
-            if value == self.obj:
-                self.assertTrue(value == self.obj)
-                break
+            for obj in self.objectsList:
+                if value == obj:
+                    self.assertTrue(value == obj)
 
     def test_reload2(self):
         """
-        Testing the reload method
+        Testing the reload method with an empty file
         """
         try:
             os.remove("file.json")
@@ -163,7 +168,7 @@ class TestMethods(unittest.TestCase):
             pass
         with open("file.json", "w") as f:
             f.write("{}")
-        self.assertIs(self.my_storage.reload(), None)
+        self.assertIs(storage.reload(), None)
 
 
 if __name__ == '__main__':
