@@ -86,16 +86,17 @@ class TestClassAttributes(unittest.TestCase):
         self.assertEqual(Place.updated_at.__class__, datetime)
 
     def test_all_attributes_are_public(self):
-            """
-            Test whether all attributes are public
-            """
-            obj = Place()            
-            attributes = dir(obj)
-            public_attributes = [attr for attr in attributes if not attr.startswith('__')]
-            class_attributes = dir(Place)
-            for attr in class_attributes:
-                if not attr.startswith('__'):
-                    self.assertIn(attr, public_attributes)
+        """
+        Test whether all attributes are public
+        """
+        obj = Place()
+        attributes = dir(obj)
+        public_attributes = [attr for attr in attributes
+                             if not attr.startswith('__')]
+        class_attributes = dir(Place)
+        for attr in class_attributes:
+            if not attr.startswith('__'):
+                self.assertIn(attr, public_attributes)
 
     def test_nonInherited_attributes(self):
         """
@@ -105,6 +106,7 @@ class TestClassAttributes(unittest.TestCase):
         for attr in attributes:
             if isinstance(attr, str):
                 self.assertIsInstance(attr, str)
+
 
 class TestConstructorMethod(unittest.TestCase):
     """

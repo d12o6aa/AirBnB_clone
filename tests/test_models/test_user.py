@@ -191,7 +191,6 @@ class TestConstructorMethod(unittest.TestCase):
         self.assertTrue(self.Objdt.updated_at.__class__ == datetime)
 
 
-
 class TestToDictMethod(unittest.TestCase):
     """
     testing to_dict() method
@@ -307,7 +306,7 @@ class TestStrMagicMethod(unittest.TestCase):
         created_at = "2017-09-28T21:05:54.119427"
         updated_at = "2023-09-28T21:05:54.119427"
         self.Objdt = User(created_at, updated_at)
-    
+
     def tearDown(self):
         """
         The setup method that will help us
@@ -371,7 +370,7 @@ class TestSaveMethod(unittest.TestCase):
         created_at = "2017-09-28T21:05:54.119427"
         updated_at = "2023-09-28T21:05:54.119427"
         self.Objdt = User(created_at, updated_at)
-    
+
     def tearDown(self):
         """
         The setup method that will help us
@@ -379,7 +378,6 @@ class TestSaveMethod(unittest.TestCase):
         the memory each time
         """
         pass
-
 
     def test_if_time_is_updated(self):
         """

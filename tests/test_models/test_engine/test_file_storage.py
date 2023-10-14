@@ -134,7 +134,7 @@ class TestMethods(unittest.TestCase):
         for obj in self.objectsList:
             storage.new(obj)
             boolean = obj in storage._FileStorage__objects.values()
-            if boolean == True:
+            if boolean is True:
                 self.assertTrue(boolean)
 
     def test_save(self):
