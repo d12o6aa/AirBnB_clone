@@ -46,17 +46,22 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """
-         Creates a new instance of BaseModel
+        Creates a new instance of BaseModel
         """
         command = self.parseline(line)[0]
 
-        if command is None:
+        if not command:
             print("** class name missing **")
-        elif command not in self.classes:
+            return
+
+        if command not in self.classes:
             print("** class doesn't exist **")
-        else:
-            print(eval(command).id)
-            storage.save()
+            return
+
+        new_instance = eval(command)()
+        new_instance.save()
+        print(new_instance.id)
+
 
     def do_show(self, line):
         """
