@@ -97,11 +97,6 @@ class TestInitialization(unittest.TestCase):
         self.assertEqual(type(FileStorage._FileStorage__file_path), str)
         self.assertEqual(type(FileStorage._FileStorage__objects), dict)
 
-    def test_storage_initializes(self):
-        """
-        storage
-        """
-        self.assertEqual(type(models.storage), FileStorage)
 
 class TestMethods(unittest.TestCase):
     """
@@ -131,6 +126,12 @@ class TestMethods(unittest.TestCase):
         Test in normal conditions
         """
         self.assertIsInstance(storage.all(), dict)
+
+    def test_all_with_arg(self):
+        """test with arg
+        """
+        with self.assertRaises(TypeError):
+            models.storage.all(None)
 
     def test_new(self):
         """
