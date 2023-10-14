@@ -163,16 +163,4 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    shell = HBNBCommand()
-
-# <<<<<<< HEAD
-
-# =======
-
-# >>>>>>> e3fa2e2357489c2fccf2f78c932f93a86bc26afc
-
-    if not sys.stdin.isatty():
-        for line in sys.stdin:
-            shell.onecmd(line.strip())
-    else:
-        HBNBCommand().cmdloop()
+    HBNBCommand().cmdloop()
