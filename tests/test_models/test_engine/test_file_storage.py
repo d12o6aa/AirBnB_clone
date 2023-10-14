@@ -133,7 +133,8 @@ class TestMethods(unittest.TestCase):
         """
         for obj in self.objectsList:
             storage.new(obj)
-            self.assertIn(f"{obj.__class__.__name__}.{obj.id}", storage.all().keys())
+            self.assertIn(f"{obj.__class__.__name__}.{obj.id}",
+                          storage.all().keys())
 
     def test_save(self):
         """
