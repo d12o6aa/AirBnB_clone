@@ -46,12 +46,13 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """
-        Creates a new instance of BaseModel
+         Creates a new instance of BaseModel
         """
-        if line is None:
-            print("** class name missing **")
         command = self.parseline(line)[0]
-        if command not in self.classes:
+
+        if command is None:
+            print("** class name missing **")
+        elif command not in self.classes:
             print("** class doesn't exist **")
         else:
             print(eval(command).id)
@@ -107,10 +108,9 @@ class HBNBCommand(cmd.Cmd):
         """
         command = self.parseline(line)[0]
         objs = storage.all()
-
         if command is None:
             print([str(objs[obj]) for obj in objs])
-        elif command not in self.classes:
+        elif command in self.classes:
             keys = objs.keys()
             print([str(objs[key]) for key in keys if key.startswith(command)])
         else:
