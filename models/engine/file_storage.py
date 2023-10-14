@@ -6,6 +6,11 @@ import json
 import os
 from ..base_model import BaseModel
 from ..user import User
+from ..state import State
+from ..city import City
+from ..amenity import Amenity
+from ..place import Place
+from ..review import Review
 
 
 class FileStorage:
@@ -16,7 +21,9 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = dict()
-    classesDict = {'BaseModel': BaseModel, 'User': User}
+    classesDict = {'BaseModel': BaseModel, 'User': User, 'State': State,
+                   'City': City, 'Amenity': Amenity, 'Place': Place,
+                   'Review': Review}
 
     def __init__(self):
         ...

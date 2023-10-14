@@ -31,9 +31,9 @@ class BaseModel:
                     continue
                 setattr(self, key, kwargs[key])
         else:
-            self.id = BaseModel.id
-            self.created_at = BaseModel.created_at
-            self.updated_at = BaseModel.updated_at
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
             models.storage.new(self)
 
     def __str__(self):
@@ -43,6 +43,12 @@ class BaseModel:
         """
         name = self.__class__.__name__
         return "[{}] ({}) {}".format(name, self.id, self.__dict__)
+
+    def __repr__(self):
+        """
+        repr
+        """
+        return self.__str__
 
     def save(self):
         """
